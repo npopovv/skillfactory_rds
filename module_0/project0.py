@@ -24,6 +24,7 @@ def game_core_v3(number):
         predict = np.random.randint(a,b)
         count+=1
     return count
+score_game(game_core_v3)
    from math import ceil
 def game_core_v4(number):
     """При каждой итеграции в цикле while смещаются границы возможного нахождения числа, если границы совпали
@@ -45,6 +46,7 @@ def game_core_v4(number):
         predict += 1
         count += 1
     return count
+score_game(game_core_v4)
 <<<<<<< HEAD
 >>>>>>> test
 =======
@@ -61,9 +63,6 @@ def game_core_v5(number):
         if number > predict:
             a = predict
             middle = a + ((b-a)/2)
-            #if number == ceil(middle):   С этим if почему-то неправильно угадывается число  
-            #    pridict = ceil(middle)
-            #    break
             if number == int(middle):
                 predict = int(middle)
                 break
@@ -74,9 +73,6 @@ def game_core_v5(number):
         else:
             b = predict
             middle = a + ((b-a)/2)
-            #if number == ceil(middle):     С этим if почему-то неправильно угадывается число  
-            #    pridict = ceil(middle)
-            #    break
             if number == int(middle):
                 predict = int(middle)
                 break
@@ -87,4 +83,5 @@ def game_core_v5(number):
         predict = np.random.randint(a,b)
         count+=1
     return count
+score_game(game_core_v5)
 >>>>>>> test
