@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+from math import floor, ceil
+import numpy as np
+
 def score_game(game_core):
     '''Запускаем игру 1000 раз, чтобы узнать, как быстро игра угадывает число'''
     count_ls = []
@@ -9,7 +11,7 @@ def score_game(game_core):
     score = int(np.mean(count_ls))
     print(f"Ваш алгоритм угадывает число в среднем за {score} попыток")
     return(score)
-=======
+
 def game_core_v3(number):
     '''Каждый раз при угадывании выбрасывается часть, в которой точно нет нужного числа'''
     predict = np.random.randint(1,101)
@@ -24,8 +26,7 @@ def game_core_v3(number):
         predict = np.random.randint(a,b)
         count+=1
     return count
-score_game(game_core_v3)
-   from math import ceil
+   
 def game_core_v4(number):
     """При каждой итеграции в цикле while смещаются границы возможного нахождения числа, если границы совпали
     -значит, угадываемое числа - одна из границ"""
@@ -33,6 +34,8 @@ def game_core_v4(number):
     top = 100
     count = 1
     while bottom != top:
+        # ты не можешь совершать операции с number, тебе же он неизвестен! :)
+        # так-то можно было predict = number написать и закончить.
         sep = number - bottom
         half = ceil((top-bottom)/2)
         if sep > half:
@@ -41,16 +44,13 @@ def game_core_v4(number):
             top -= half
         elif sep == half:
             bottom = bottom + sep
+    # тут у тебя заканчивается всё тем, чето bottom == number
     predict = bottom
     while predict != number:
         predict += 1
         count += 1
     return count
-score_game(game_core_v4)
-<<<<<<< HEAD
->>>>>>> test
-=======
-from math import floor
+
 def game_core_v5(number):
     """ Перед каждым следующим угадыванием границы возможного нахождения числа дважды смещаются
     Это то же, что game_core_v4, только там границы смещаются до угадывания числа. Добавил так как 
@@ -63,6 +63,7 @@ def game_core_v5(number):
         if number > predict:
             a = predict
             middle = a + ((b-a)/2)
+            # ну так не честно! :)  ты за один цикл делаешь две операции проверки, а считаешь как один count.
             if number == int(middle):
                 predict = int(middle)
                 break
@@ -83,5 +84,36 @@ def game_core_v5(number):
         predict = np.random.randint(a,b)
         count+=1
     return count
-score_game(game_core_v5)
->>>>>>> test
+
+def game_core_v5_se(number):
+    """Бинарный поиск number в диапазоне от minimum до maximum"""
+    count   = 0
+    mininum = 1
+    maximum = 100
+    
+    while True:
+        count += 1
+        predict = (mininum+maximum)//2
+        if predict == number:
+            return count
+        elif number > predict:
+            mininum = predict + 1
+        else:
+            maximum = predict - 1
+
+if __name__ == "__main__":
+    print('-'*4, 'game_core_v3', '-'*4)
+    score_game(game_core_v3)
+    print()
+
+    print('-'*4, 'game_core_v4', '-'*4)
+    score_game(game_core_v4)
+    print()
+
+    print('-'*4, 'game_core_v5', '-'*4)
+    score_game(game_core_v5)
+    print()
+
+    print('-'*4, 'game_core_v5_se', '-'*4)
+    score_game(game_core_v5_se)
+    print()
