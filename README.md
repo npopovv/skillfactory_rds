@@ -1,1 +1,1 @@
-# Тренироваочные задачи по курсу data science от SkillFactory
+Тренироваочные задачи по курсу data science от SkillFactory
